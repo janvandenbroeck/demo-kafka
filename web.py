@@ -7,8 +7,14 @@ app.producer = kafka_helper.get_kafka_producer()
 @app.route('/tx', methods=['POST'])
 def post_tx():
     parsed_json = request.get_json()
-    print(len(parsed_json))
 
-    print('LicensePlate = {}'.format(parsed_json[0]["LicensePlate"]))
+    #to the debug log
+    print(parsed_json)
 
-    return "OK"
+    licenseplate = parsed_json[0]["LicensePlate"]
+    mileagedriven = parsed_json[0]["MileageDriven"]
+    fuelconsumed = parsed_json[0]["MileageDriven"]
+
+    average_consumption_l_100km = (100/mileagedriven) * fuelconsumed
+
+    return "OK {}".format(average_consumption_l_100km)
