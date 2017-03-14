@@ -13,8 +13,10 @@ def post_tx():
 
     licenseplate = parsed_json[0]["LicensePlate"]
     mileagedriven = parsed_json[0]["MileageDriven"]
-    fuelconsumed = parsed_json[0]["MileageDriven"]
+    fuelconsumed = parsed_json[0]["FuelConsumed"]
 
     average_consumption_l_100km = (100/mileagedriven) * fuelconsumed
+
     print("{} {} {}".format(mileagedriven, fuelconsumed, fuelconsumed))
+
     return "OK {}".format(average_consumption_l_100km)
