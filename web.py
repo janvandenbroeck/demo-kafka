@@ -16,5 +16,5 @@ def post_tx():
     fuelconsumed = parsed_json[0]["MileageDriven"]
 
     average_consumption_l_100km = (100/mileagedriven) * fuelconsumed
-    print(mileagedriven + ' ' + fuelconsumed + ' ' + fuelconsumed)
+    print("{} {} {}".format(mileagedriven, fuelconsumed, fuelconsumed))
     return "OK {}".format(average_consumption_l_100km)
