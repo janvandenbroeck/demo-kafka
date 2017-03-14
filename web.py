@@ -6,17 +6,18 @@ app.producer = kafka_helper.get_kafka_producer()
 
 @app.route('/tx', methods=['POST'])
 def post_tx():
-    parsed_json = request.get_json()
+    parsed_json = request.get_json()[0]
 
     #to the debug log
     print(parsed_json)
 
-    licenseplate = parsed_json[0]["LicensePlate"]
-    mileagedriven = parsed_json[0]["MileageDriven"]
-    fuelconsumed = parsed_json[0]["FuelConsumed"]
-
+    licenseplate = parsed_json["LicensePlate"]
+    mileagedriven = parsed_json["MileageDriven"]
+    fuelconsumed = parsed_json["FuelConsumed"]
     average_consumption_l_100km = (100/mileagedriven) * fuelconsumed
 
-    print("{} {} {}".format(mileagedriven, fuelconsumed, fuelconsumed))
-
-    return "OK {}".format(average_consumption_l_100km)
+    if licenseplate == "1NUR622":
+        app.producer.send('truck-action', key='1NUR622', value=parsed_json)
+        return "OK"
+    else:
+        return "Bad Request", 400
