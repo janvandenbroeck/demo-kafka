@@ -4,7 +4,7 @@ import kafka_helper
 app = Flask(__name__)
 app.producer = kafka_helper.get_kafka_producer()
 
-@app.route('/tx', method=['POST'])
+@app.route('/tx', methods=['POST'])
 def post_tx():
     parsed_json = request.get_json()
     print(len(parsed_json))
