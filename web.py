@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import kafka_helper
 
 app = Flask(__name__)
 app.producer = kafka_helper.get_kafka_producer()
