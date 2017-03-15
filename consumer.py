@@ -3,6 +3,7 @@ from sqlalchemy import create_engine, Table, MetaData
 from pymongo import MongoClient
 import logging
 import os
+import requests
 
 # Postgres setup
 consumer = kafka_helper.get_kafka_consumer(topic='truck-action')
