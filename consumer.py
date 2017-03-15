@@ -20,8 +20,8 @@ for message in consumer:
         pass
 
     print(result)
-    fuel = result["Fuel__c"] + json_record["FuelConsumed"]
-    mileage = result["Mileage__c"] + json_record['MileageDriven']
+    fuel = result["fuel__c"] + json_record["FuelConsumed"]
+    mileage = result["mileage__c"] + json_record['MileageDriven']
 
     average_consumption_l_100km = (100/mileage) * fuel
 
