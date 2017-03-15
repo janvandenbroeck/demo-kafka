@@ -18,8 +18,7 @@ def update_fuelconsumption(licenseplate, km, fuel):
 
     # getting the data
     conn = db_engine.connect()
-    result = conn.execute("SELECT licenseplate__c, fuel__c, mileage__c FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(licenseplate))
-    result = result.first()
+    result = conn.execute("SELECT licenseplate__c, fuel__c, mileage__c FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(licenseplate)).first()
 
     if not result:
         pass
