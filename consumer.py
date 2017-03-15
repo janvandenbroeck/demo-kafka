@@ -22,7 +22,7 @@ def update_fuelconsumption(licenseplate, km, fuel):
 
     average_consumption_l_100km = (100/mileage) * fuel
 
-    result = conn.execute("UPDATE salesforce.truck__c SET average_consumption__c = {}, fuel__c = {}, mileage = {} WHERE licenseplate__c = '{}'".format(average_consumption_l_100km, fuel, mileage, licenseplate))
+    result = conn.execute("UPDATE salesforce.truck__c SET average_consumption__c = {}, fuel__c = {}, mileage__c = {} WHERE licenseplate__c = '{}'".format(average_consumption_l_100km, fuel, mileage, licenseplate))
 
     print("New Average Fuel Consumption {}".format(average_consumption_l_100km))
 
