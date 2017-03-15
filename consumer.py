@@ -14,9 +14,13 @@ for message in consumer:
 
     conn = db_engine.connect()
     result = conn.execute("SELECT * FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(json_record['LicensePlate']))
+    result = result.first()
 
-    fuel = result[0]["Fuel__c"] + json_record["FuelConsumed"]
-    mileage = result[0]["Mileage__c"] + json_record['MileageDriven']
+    if not result:
+        pass
+
+    fuel = result["Fuel__c"] + json_record["FuelConsumed"]
+    mileage = result["Mileage__c"] + json_record['MileageDriven']
 
     average_consumption_l_100km = (100/mileage) * fuel
 
