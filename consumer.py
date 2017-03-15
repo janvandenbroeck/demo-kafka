@@ -20,7 +20,7 @@ def update_fuelconsumption(licenseplate, km, fuel):
 
     # getting the data
     conn = db_engine.connect()
-    row_count = conn.scalar(select([func.count('*')]).select_from(table).where(trucks.c.licenseplate__c==licenseplate))
+    row_count = conn.scalar(select([func.count('*')]).select_from(trucks).where(trucks.c.licenseplate__c==licenseplate))
 
     if row_count == 0:
         ins = trucks.insert().values(licenseplate__c=licenseplate, phone__c="+32491623693")
