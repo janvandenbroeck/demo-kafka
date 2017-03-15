@@ -19,12 +19,13 @@ for message in consumer:
     if not result:
         pass
 
-    fuel = result["Fuel__c"] + json_record["FuelConsumed"]
-    mileage = result["Mileage__c"] + json_record['MileageDriven']
+    print(result)
+    #fuel = result["Fuel__c"] + json_record["FuelConsumed"]
+    #mileage = result["Mileage__c"] + json_record['MileageDriven']
 
-    average_consumption_l_100km = (100/mileage) * fuel
+    #average_consumption_l_100km = (100/mileage) * fuel
 
-    print("Average Fuel Consumption {}".format(average_consumption_l_100km))
+    #print("Average Fuel Consumption {}".format(average_consumption_l_100km))
 
 def update_fuelconsumption(licenseplate, km, fuel):
     pass
