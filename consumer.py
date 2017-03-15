@@ -6,14 +6,14 @@ import os
 consumer = kafka_helper.get_kafka_consumer(topic='truck-action')
 db_engine = create_engine(os.environ['DATABASE_URL'])
 metadata = MetaData()
-trucks = Table('salesforce.Truck__c', metadata, autoload=True, autoload_with=db_engine)
+trucks = Table('salesforce.truck__c', metadata, autoload=True, autoload_with=db_engine)
 
 for message in consumer:
     print(message)
     json_record = message.value
 
     conn = db_engine.connect()
-    result = conn.execute("SELECT licensplate__c FROM salesforce.Truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(json_record['LicensePlate']))
+    result = conn.execute("SELECT licensplate__c FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(json_record['LicensePlate']))
 
     if len(result) == 0:
         pass
