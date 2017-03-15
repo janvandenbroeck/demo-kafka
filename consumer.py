@@ -6,7 +6,7 @@ import os
 consumer = kafka_helper.get_kafka_consumer(topic='truck-action')
 db_engine = create_engine(os.environ['DATABASE_URL'])
 metadata = MetaData(bind=db_engine)
-#trucks = Table('salesforce.truck__c', metadata, autoload=True, autoload_with=db_engine)
+trucks = Table('truck__c', metadata, autoload=True, schema='salesforce')
 
 for message in consumer:
     print(message)
