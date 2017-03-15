@@ -12,7 +12,7 @@ trucks = Table('truck__c', metadata, autoload=True, schema='salesforce')
 
 # Mongo setup
 client = MongoClient(os.environ['MONGODB_URI'])
-mongo_db = client.database_names()[0]
+mongo_db = client.heroku_2pj49ssl
 
 def update_fuelconsumption(licenseplate, km, fuel):
 
@@ -46,4 +46,3 @@ for message in consumer:
 
     update_fuelconsumption(json_record["LicensePlate"], json_record['MileageDriven'], json_record["FuelConsumed"])
     write_to_mongo(json_record)
-    
