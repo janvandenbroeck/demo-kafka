@@ -12,20 +12,25 @@ for message in consumer:
     print(message)
     json_record = message.value
 
+    update_fuelconsumption(json_record["LicensePlate"], json_record['MileageDriven'], json_record["FuelConsumed"])
+
+
+def update_fuelconsumption(licenseplate, km, fuel):
     conn = db_engine.connect()
-    result = conn.execute("SELECT licenseplate__c, fuel__c, mileage__c FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(json_record['LicensePlate']))
+    result = conn.execute("SELECT licenseplate__c, fuel__c, mileage__c FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(licenseplate))
     result = result.first()
 
     if not result:
         pass
 
     print(result)
-    fuel = result["fuel__c"] + json_record["FuelConsumed"]
-    mileage = result["mileage__c"] + json_record['MileageDriven']
+    fuel = result["fuel__c"] + fuel
+    mileage = result["mileage__c"] + km
 
     average_consumption_l_100km = (100/mileage) * fuel
 
-    print("New Average Fuel Consumption {}".format(average_consumption_l_100km))
+    result = conn.execute("UPDATE salesforce.truck__c SET average_consumption__c = {}, fuel__c = {}, mileage = {} WHERE licenseplate__c = '{}'".format(average_consumption_l_100km, fuel, mileage, licenseplate))
 
-def update_fuelconsumption(licenseplate, km, fuel):
-    pass
+    print("New Average Fuel Consumption {}".format(average_consumption_l_100km))
+    
+    conn.close()
