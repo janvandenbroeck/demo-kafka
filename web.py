@@ -20,7 +20,6 @@ def post_tx():
     licenseplate = parsed_json["LicensePlate"]
     mileagedriven = parsed_json["MileageDriven"]
     fuelconsumed = parsed_json["FuelConsumed"]
-    average_consumption_l_100km = (100/mileagedriven) * fuelconsumed
 
     app.producer.send('truck-action', key=bytes(licenseplate), value=parsed_json)
     return "OK"
