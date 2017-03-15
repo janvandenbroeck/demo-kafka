@@ -1,5 +1,6 @@
 import kafka_helper
-from sqlalchemy import create_engine, Table, MetaData
+from sqlalchemy import create_engine, Table, MetaData, select
+from sqlalchemy.sql.expression import func
 from pymongo import MongoClient
 import logging
 import os
@@ -19,17 +20,18 @@ def update_fuelconsumption(licenseplate, km, fuel):
 
     # getting the data
     conn = db_engine.connect()
-    result = conn.execute("SELECT licenseplate__c, fuel__c, mileage__c, phone__c FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(licenseplate)).first()
+    row_count = conn.scalar(select([func.count('*')]).select_from(table).where(trucks.c.licenseplate__c==licenseplate))
 
-    if not result:
-        ins = trucks.insert().values(licenseplate__c=licenseplate)
+    if row_count == 0:
+        ins = trucks.insert().values(licenseplate__c=licenseplate, phone__c="+32491623693")
         conn.execute(ins)
-        result = conn.execute("SELECT licenseplate__c, fuel__c, mileage__c, phone__c FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(licenseplate)).first()
+
+    result = conn.execute("SELECT licenseplate__c, fuel__c, mileage__c, phone__c FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(licenseplate)).first()
 
     # Calculating the new values
     fuel = result["fuel__c"] + fuel
     mileage = result["mileage__c"] + km
-    average_consumption_l_100km = (100/mileage) * fuel
+    average_consumption_l_100km = (200/mileage) * fuel
 
     # Updating the record
     result = conn.execute("UPDATE salesforce.truck__c SET average_consumption__c = {}, fuel__c = {}, mileage__c = {} WHERE licenseplate__c = '{}'".format(average_consumption_l_100km, fuel, mileage, licenseplate))
