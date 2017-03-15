@@ -43,7 +43,7 @@ def update_fuelconsumption(licenseplate, km, fuel):
 def write_to_mongo(json_msg):
     truck_actions = mongo_db.truck_actions
     inserted_id = truck_actions.insert_one(json_msg).inserted_id
-    print("Record inserted into MongoDB with ID {}".format(inserted_id)
+    print("Record inserted into MongoDB with ID {}".format(inserted_id))
 
 for message in consumer:
     print(message)
