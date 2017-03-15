@@ -13,7 +13,7 @@ for message in consumer:
     json_record = message.value
 
     conn = db_engine.connect()
-    result = conn.execute("SELECT * FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(json_record['LicensePlate']))
+    result = conn.execute("SELECT licenseplate__c, fuel__c, mileage__c FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(json_record['LicensePlate']))
     result = result.first()
 
     if not result:
