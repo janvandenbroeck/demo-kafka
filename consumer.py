@@ -13,7 +13,7 @@ for message in consumer:
     json_record = message.value
 
     conn = db_engine.connect()
-    result = conn.execute("SELECT licensplate__c FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(json_record['LicensePlate']))
+    result = conn.execute("SELECT * FROM salesforce.truck__c WHERE licenseplate__c = '{}' LIMIT 1".format(json_record['LicensePlate']))
 
     if len(result) == 0:
         pass
