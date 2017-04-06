@@ -1,4 +1,5 @@
 {
+  "name": "Kafka Demo for IoT",
   "environments": {
     "test": {
       "env":{
@@ -7,7 +8,9 @@
       "scripts": {
         "test":"nosetests"
       },
-      "add-ons": []
+      "addons": [
+        "heroku-postgresql:hobby-dev"
+      ]
     }
   }
 }
