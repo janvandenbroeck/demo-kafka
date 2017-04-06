@@ -5,6 +5,7 @@
 
       },
       "scripts": {
+        "test":"nosetests"
       },
       "add-ons": []
     }
