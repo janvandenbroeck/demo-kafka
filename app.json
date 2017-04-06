@@ -1,0 +1,12 @@
+{
+  "environments": {
+    "test": {
+      "env":{
+
+      },
+      "scripts": {
+      },
+      "add-ons": []
+    }
+  }
+}
