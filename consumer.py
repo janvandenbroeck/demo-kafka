@@ -47,6 +47,7 @@ def write_to_mongo(json_msg):
 
 for message in consumer:
     print(message)
+    print('PR')
     json_record = message.value
 
     update_fuelconsumption(json_record["LicensePlate"], json_record['MileageDriven'], json_record["FuelConsumed"])
