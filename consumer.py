@@ -20,6 +20,7 @@ def update_fuelconsumption(licenseplate, km, fuel):
 
     # getting the data
     conn = db_engine.connect()
+    print("hello")
     row_count = conn.scalar(select([func.count('*')]).select_from(trucks).where(trucks.c.licenseplate__c==licenseplate))
 
     if row_count == 0:
