@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import kafka_helper
 
 app = Flask(__name__)
@@ -23,3 +23,7 @@ def post_tx():
 
     app.producer.send('truck-action', key=bytes(licenseplate), value=parsed_json)
     return "OK"
+
+@app.route('/loaderio-eea6b044e707dc83bbbc8912d78c3f42.txt')
+def verification_url():
+    return send_file(filename_or_fp='loaderio-eea6b044e707dc83bbbc8912d78c3f42.txt')
