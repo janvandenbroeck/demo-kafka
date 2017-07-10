@@ -1,6 +1,6 @@
 
-def one():
+def one_test():
     assert True
 
-def two():
+def two_test():
     assert True
