@@ -1,10 +1,16 @@
 import os
 
 from flask import Flask, request, jsonify, send_file
+from sqlalchemy import create_engine, Table, MetaData, select
+from sqlalchemy.sql.expression import func
+
 import kafka_helper
 
 app = Flask(__name__)
 app.producer = kafka_helper.get_kafka_producer()
+
+app.db_engine = create_engine(os.environ['DATABASE_URL'])
+app.metadata = MetaData(bind=db_engine)
 
 @app.route('/tx', methods=['POST'])
 def post_tx():
@@ -24,6 +30,10 @@ def post_tx():
     app.producer.send('truck-action', key=bytes(licenseplate), value=parsed_json)
     return "OK"
 
-@app.route('/loaderio-eea6b044e707dc83bbbc8912d78c3f42.txt')
-def verification_url():
-    return send_file(filename_or_fp='loaderio-eea6b044e707dc83bbbc8912d78c3f42.txt')
+@app.route('/products')
+def get_products():
+    conn = app.db_engine.connect()
+    result = conn.execute("SELECT * FROM salesforce.product2")
+    result_set = [r for r in result]
+
+    return jsonify(result_set)

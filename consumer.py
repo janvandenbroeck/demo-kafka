@@ -13,8 +13,8 @@ metadata = MetaData(bind=db_engine)
 trucks = Table('truck__c', metadata, autoload=True, schema='salesforce')
 
 # Mongo setup
-client = MongoClient(os.environ['MONGODB_URI'])
-mongo_db = client.heroku_2pj49ssl
+#client = MongoClient(os.environ['MONGODB_URI'])
+#mongo_db = client.heroku_2pj49ssl
 
 def update_fuelconsumption(licenseplate, km, fuel):
 
@@ -41,13 +41,14 @@ def update_fuelconsumption(licenseplate, km, fuel):
     print("New Average Fuel Consumption {}".format(average_consumption_l_100km))
 
 def write_to_mongo(json_msg):
-    truck_actions = mongo_db.truck_actions
-    inserted_id = truck_actions.insert_one(json_msg).inserted_id
-    print("Record inserted into MongoDB with ID {}".format(inserted_id))
+    #truck_actions = mongo_db.truck_actions
+    #inserted_id = truck_actions.insert_one(json_msg).inserted_id
+    #print("Record inserted into MongoDB with ID {}".format(inserted_id))
+    pass
 
 for message in consumer:
     print(message)
     json_record = message.value
 
     update_fuelconsumption(json_record["LicensePlate"], json_record['MileageDriven'], json_record["FuelConsumed"])
-    write_to_mongo(json_record)
+    #write_to_mongo(json_record)
