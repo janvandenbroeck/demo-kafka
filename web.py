@@ -37,7 +37,7 @@ def get_products():
     result_set = []
     for r in result:
         row = dict()
-        for key, value in r.items()
+        for key, value in r.items():
             row[key] = value
         result_set.append(row)
 
