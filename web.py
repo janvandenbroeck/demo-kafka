@@ -36,7 +36,9 @@ def get_products():
     result = conn.execute("SELECT * FROM salesforce.product2").all()
     result_set = []
     for r in result:
-        print(r)
-        result_set.append(r)
+        row = dict()
+        for key, value in r.items()
+            row[key] = value
+        result_set.append(row)
 
     return jsonify(result_set)
