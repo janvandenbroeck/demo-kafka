@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.producer = kafka_helper.get_kafka_producer()
 
 app.db_engine = create_engine(os.environ['DATABASE_URL'])
-app.metadata = MetaData(bind=db_engine)
+app.metadata = MetaData(bind=app.db_engine)
 
 @app.route('/tx', methods=['POST'])
 def post_tx():
