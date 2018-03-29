@@ -32,6 +32,7 @@ def post_tx():
 
 @app.route('/products')
 def get_products():
+    print('Getting them products!')
     conn = app.db_engine.connect()
     result = conn.execute("SELECT * FROM salesforce.product2")
     result_set = []
